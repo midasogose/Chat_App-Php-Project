@@ -97,4 +97,118 @@
 					    </small>      	
 					</p>
                     <?php } 
-                     }	
+                     }
+		}else{ ?>
+						<div class="alert alert-info 
+										 text-center">
+							<i class="fa fa-comments d-block fs-big"></i>
+							No messages yet, Start the conversation
+						</div>
+						<?php } ?>
+					</div>
+					<div class="input-group mb-3">
+						   <textarea cols="3"
+									 id="message"
+									 class="form-control"></textarea>
+						   <button class="btn btn-primary"
+								   id="sendBtn">
+								 <i class="fa fa-paper-plane"></i>
+						   </button>
+					</div>
+		 
+			 </div>
+		  
+		 
+		  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		 
+		 <script>
+			 var scrollDown = function(){
+				 let chatBox = document.getElementById('chatBox');
+				 chatBox.scrollTop = chatBox.scrollHeight;
+			 }
+		 
+			 scrollDown();
+		 
+			 $(document).ready(function(){
+			   
+			   $("#sendBtn").on('click', function(){
+				   message = $("#message").val();
+				   if (message == "") return;
+		 
+				   $.post("app/ajax/insert.php",
+						  {
+							  message: message,
+							  to_id: <?=$chatWith['user_id']?>
+						  },
+						  function(data, status){
+						   $("#message").val("");
+						   $("#chatBox").append(data);
+						   scrollDown();
+						  });
+			   });
+		 
+			   /** 
+			   auto update last seen 
+			   for logged in user
+			   **/
+			   let lastSeenUpdate = function(){
+				   $.get("app/ajax/update_last_seen.php");
+			   }
+			   lastSeenUpdate();
+			   /** 
+			   auto update last seen 
+			   every 10 sec
+			   **/
+			   setInterval(lastSeenUpdate, 10000);
+		 
+		 
+		 
+			   // auto refresh / reload
+			   let fechData = function(){
+				   $.post("app/ajax/getMessage.php", 
+						  {
+							  id_2: <?=$chatWith['user_id']?>
+						  },
+						  function(data, status){
+						   $("#chatBox").append(data);
+						   if (data != "") scrollDown();
+						   });
+			   }
+		 
+			   fechData();
+			   /** 
+			   auto update last seen 
+			   every 0.5 sec
+			   **/
+			   setInterval(fechData, 500);
+			 
+			 });
+		 </script>
+		  </body>
+		  </html>
+		 <?php
+		   }else{
+			   header("Location: index.php");
+				exit;
+		   }
+		  ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
