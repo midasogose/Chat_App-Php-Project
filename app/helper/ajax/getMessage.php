@@ -8,7 +8,7 @@ if (isset($_SESSION['username'])) {
 	if (isset($_POST['id_2'])) {
 	
 	# database connection file
-	include '../db.conn.php';
+	include '../http/db.conn.php';
 
 	$id_1  = $_SESSION['user_id'];
 	$id_2  = $_POST['id_2'];

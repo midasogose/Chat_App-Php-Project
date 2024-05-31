@@ -7,7 +7,7 @@ if (isset($_SESSION['username'])) {
     # check if the key is submitted
     if(isset($_POST['key'])){
        # database connection file
-	   include '../db.conn.php';
+	   include '..';
 
 	   # creating simple search algorithm :) 
 	   $key = "%{$_POST['key']}%";

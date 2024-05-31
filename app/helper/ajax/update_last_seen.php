@@ -6,7 +6,7 @@ session_start();
 if (isset($_SESSION['username'])) {
 	
 	# database connection file
-	include '../db.conn.php';
+	include '../http/db.conn.php';
 
 	# get the logged in user's username from SESSION
 	$id = $_SESSION['user_id'];

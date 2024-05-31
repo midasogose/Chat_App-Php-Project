@@ -6,7 +6,7 @@ if(isset($_POST['username']) &&
    isset($_POST['name'])){
 
    # database connection file
-   include '../db.conn.php';
+   include '../http/db.conn.php';
    
    # get data from POST request and store them in var
    $name = $_POST['name'];
