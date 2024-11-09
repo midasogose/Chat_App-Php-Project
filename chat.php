@@ -1,4 +1,5 @@
-<?php 
+<?php
+Assalamu aleykum, well come all! 
   session_start();
 
   if (isset($_SESSION['username'])) {
